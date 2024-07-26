@@ -12,8 +12,21 @@
 
         <div class="row">
             <div class="col">
-
+<form>
+            <p>Please select your preferred contact method:</p>
+            <div>
+                
+                    
+                
+            </div>
+            
+          </form>
                 <form action="" method="post">
+                    <select>
+                        <option value="value1">-------</option>
+                        <option value="value2">Private</option>
+                        <option value="value3">Public</option>
+                      </select>
                     {% csrf_token %}
                         {{ form.as_p }}
                     <div class="col-4">    
@@ -23,5 +36,6 @@
 
             </div>
         </div>
+        
     </div>
 {% endblock  %}

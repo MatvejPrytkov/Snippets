@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Begin page content -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1>{{ pagename }}</h1>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <p>На данной странице отображаются все  сниппеты, созданные вами.</p>
+               
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Язык</th>
+                        <th scope="col">Дата создания</th>
+                        <th scope="col">Действия</th>
+                        <th scope="col">Пользователь</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for snippet in snippets %}
+                            <tr>
+                                <td scope="row">{{ snippet.id }}</td>
+                                <td><a href="{% url "snippet-detail" snippet.id %}"> {{ snippet.name }}</a>
+                                    <a href="{% url "snippet-delete" snippet.id %}">
+                                        <i style="color: red;" class="fa-solid fa-trash"></i>
+                                    </a>
+                                    <a href="{% url "snippet-edit" snippet.id %}">
+                                        <i style="color: red;" class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                                <td>{{ snippet.lang }} </td>
+                                {# https://docs.djangoproject.com/en/5.0/ref/templates/builtins/#std-templatefilter-date #}
+                                <td>{{ snippet.creation_date | date:"Y-m-d H:i:s"}}</td>
+                                <td>
+                                    <form action="{% url "snippet-delete" snippet.id %}" method='post'>
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                                <td> {{ snippet.user.username }} </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div align="right">
+                    <i style="color: gray;">Всего сниппетов: {{ snippets.count }} </i>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
