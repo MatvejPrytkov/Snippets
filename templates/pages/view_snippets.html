@@ -29,11 +29,15 @@
                         <th scope="col">Язык</th>
                         <th scope="col">Дата создания</th>
                         <th scope="col">Действия</th>
+                        {% comment %} <th scope="col">Публичность</th> {% endcomment %}
                         <th scope="col">Пользователь</th>
                     </tr>
                     </thead>
                     <tbody>
+                        
+                        
                         {% for snippet in snippets %}
+                        {% if snippet.is_public %}
                             <tr>
                                 <td scope="row">{{ snippet.id }}</td>
                                 <td><a href="{% url "snippet-detail" snippet.id %}"> {{ snippet.name }}</a>
@@ -53,9 +57,14 @@
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
+                                {% comment %} <td>{{snippet.is_public}}</td> {% endcomment %}
                                 <td> {{ snippet.user.username }} </td>
                             </tr>
+                            {% endif %}
                         {% endfor %}
+                        
+
+                        
                     </tbody>
                 </table>
                 <div align="right">
