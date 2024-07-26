@@ -41,12 +41,21 @@
                             <tr>
                                 <td scope="row">{{ snippet.id }}</td>
                                 <td><a href="{% url "snippet-detail" snippet.id %}"> {{ snippet.name }}</a>
-                                    <a href="{% url "snippet-delete" snippet.id %}">
+                                    {% comment %} {% if request.user ==snippet.user %} {% endcomment %}
+                                    {% comment %} {% if snippets.is_public %} {% endcomment %}
+                                     <a href="{% url "snippet-delete" snippet.id %}">
                                         <i style="color: red;" class="fa-solid fa-trash"></i>
                                     </a>
+
+
+
                                     <a href="{% url "snippet-edit" snippet.id %}">
                                         <i style="color: red;" class="fas fa-edit"></i>
                                     </a>
+                                    {% comment %} {% endif %} {% endcomment %}
+{% comment %}                                     
+                                    {% endif %} {% endcomment %}
+                                   
                                 </td>
                                 <td>{{ snippet.lang }} </td>
                                 {# https://docs.djangoproject.com/en/5.0/ref/templates/builtins/#std-templatefilter-date #}
@@ -57,8 +66,13 @@
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
-                                {% comment %} <td>{{snippet.is_public}}</td> {% endcomment %}
+                                {% comment %} <td>
+                                    {% if {{snippet.is_public}} %}
+                                    
+                                    {% endif %}
+                                </td> {% endcomment %}
                                 <td> {{ snippet.user.username }} </td>
+
                             </tr>
                             {% endif %}
                         {% endfor %}
